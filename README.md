@@ -1,73 +1,72 @@
-# Welcome to your Lovable project
+"Mo:ment" 서비스에 대한 상세한 설명을 바탕으로, 잠재 사용자들이 솔깃할 만한 깃허브 README를 작성해 드릴게요. 핵심 가치와 사용자 페르소나, 문제점, 그리고 주요 기능을 명확하고 매력적으로 전달하는 데 중점을 두었습니다.
 
-## Project info
+---
 
-**URL**: https://lovable.dev/projects/5f172021-5e84-4d59-9437-261ac35c310e
+# 🎞️ Mo:ment: 당신의 소중한 순간을 캘린더에 담다
 
-## How can I edit this code?
+**Mo:ment**는 공연, 전시, 데이트 등 당신의 다채로운 문화 경험을 **캘린더 기반의 포토 갤러리**로 시각화하여, 사진과 그 순간의 감정을 함께 되돌아볼 수 있는 감성 기록 서비스입니다. 흩어진 추억들을 한데 모아 당신만의 특별한 문화 다이어리, 혹은 커플 다이어리를 만들어 보세요.
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## ✨ 핵심 가치
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/5f172021-5e84-4d59-9437-261ac35c310e) and start prompting.
+* **기억을 시간에 연결하다**: 사진과 일정을 기반으로 소중한 추억들을 자동으로 정리해 드립니다.
+* **사진 위에 감정을 기록하다**: 감상 메모, 장소 기록 등 회고 기능을 강화하여 순간의 감정까지 생생하게 기록할 수 있습니다.
+* **나만의 문화 다이어리 / 커플 다이어리**: 개인의 취향을 담은 문화 기록부터 연인과의 아름다운 추억까지, 맞춤형 다이어리로 진화합니다.
 
-Changes made via Lovable will be committed automatically to this repo.
+---
 
-**Use your preferred IDE**
+## 🙋‍♀️ 어떤 분들을 위한 서비스인가요?
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 🧑‍🎤 문화 경험자 "박서연 (28세, 마케팅 회사 콘텐츠 기획자)"님을 위한 Mo:ment
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+* **이런 고민이 있으셨죠?**: "공연 사진 찾기가 너무 힘들어요.", "언제 그 공연을 갔더라? 날짜가 기억이 안 나네.", "감상은 많은데 SNS에 올리기는 좀 애매해요."
+* **Mo:ment가 해결해 드려요!**: 날짜별 자동 정리 기능으로 사진을 손쉽게 찾고, 공연명과 날짜를 한눈에 확인할 수 있어요. 개인적인 감상 메모는 오직 나만의 공간에 자유롭게 기록할 수 있어, 당신만을 위한 **개인화된 문화 다이어리**가 완성됩니다.
 
-Follow these steps:
+### 🧑‍🤝‍🧑 커플 사용자 김지훈 (30세, 개발자) & 박수빈 (29세, 간호사)"님을 위한 Mo:ment
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+* **이런 고민이 있으셨죠?**: "언제 데이트했더라? 매번 갤러리를 뒤져야 해요.", "그때 갔던 장소랑 감정은 도통 기억이 안 나요."
+* **Mo:ment가 해결해 드려요!**: 데이트별 사진을 자동으로 정리하고, 위치와 날짜를 기반으로 소중한 추억을 쉽게 회고할 수 있습니다. **커플 공유 다이어리** 기능을 통해 서로의 사진과 감상을 함께 나누며 특별한 기념일을 만들 수 있어요.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+---
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 📌 Mo:ment, 이런 문제들을 해결합니다!
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+* **흩어진 추억의 조각들**: 아무리 많은 사진을 찍어도 날짜나 장소 중심으로 정리되지 않아 다시 찾아보기 어려웠던 경험, Mo:ment가 깔끔하게 해결해 드립니다.
+* **기록의 어려움**: 공연이나 데이트와 같은 소중한 경험은 사진뿐만 아니라 그 순간의 감정까지 함께 기록하고 싶지만, 마땅한 공간이 없었습니다.
+* **개인 기록의 부담**: SNS에 올리기에는 너무 개인적인 기록들은 어디에 남겨야 할지 고민이셨죠? Mo:ment는 당신만의 사적인 공간을 제공합니다.
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 🛠️ 주요 기능
 
-**Use GitHub Codespaces**
+### 1. 📆 캘린더 기반 포토 뷰
+날짜별 대표 사진 썸네일을 달력에 직관적으로 표시합니다. 공연이나 데이트 일정이 있는 날은 특별히 하이라이트되어 한눈에 파악하기 쉽고, 클릭 한 번으로 관련 사진과 감상 메모를 바로 확인할 수 있습니다.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### 2. 📸 자동 정리 시스템
+사진의 EXIF 메타데이터를 기반으로 날짜와 위치를 자동으로 분석합니다. 캘린더 일정 및 '공연', '데이트'와 같은 키워드를 통해 사진을 자동으로 그룹핑하여 정리해 드려요.
+* **예시**: `2025 서울재즈페스티벌`, `성수동 브런치`, `만난 지 200일`
 
-## What technologies are used for this project?
+### 3. 📝 감상/감정 기록
+공연명, 장소, 그날의 기분, 함께한 사람 등 당신의 감성과 경험을 자유롭게 기록하세요. 사진별 또는 일정별로 세부적인 메모를 저장할 수 있습니다.
 
-This project is built with:
+### 4. 🤝 공유 다이어리 (커플 모드)
+연인과 함께 보는 특별한 캘린더 뷰와 메모 기능을 제공합니다. 간단한 댓글이나 하트 리액션으로 서로의 추억에 공감하고, "처음 제주 간 날"과 같이 소중한 추억 회상 카드를 자동으로 생성해 드립니다.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### 5. 🔍 스마트 검색 & 연감 리포트
+키워드, 장소, 기간별로 원하는 추억을 손쉽게 검색할 수 있습니다. "2025년 내 문화 소비 요약", "이번 달 다녀온 전시들"과 같은 자동 생성 카드로 당신의 한 해를 특별하게 되돌아보세요.
 
-## How can I deploy this project?
+---
 
-Simply open [Lovable](https://lovable.dev/projects/5f172021-5e84-4d59-9437-261ac35c310e) and click on Share -> Publish.
+## 📌 Mo:ment, 앞으로 더 발전할 거예요! (향후 기능 제안)
 
-## Can I connect a custom domain to my Lovable project?
+* 📍 **장소 기반 지도 뷰**: 방문했던 장소들을 지도에서 한눈에 확인하고 추억을 더듬어 보세요.
+* 💬 **음성 기록 추가**: 짧은 감성 메모를 음성으로 간편하게 기록할 수 있게 됩니다.
+* 🔗 **인스타그램 연동**: 인스타그램에 올린 사진들을 Mo:ment로 자동 연동하여 더욱 풍부한 기록을 만들 수 있습니다.
+* 💑 **기념일 카운트다운 + 축하 카드**: 소중한 기념일을 잊지 않고 축하할 수 있도록 돕습니다.
 
-Yes, you can!
+---
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Mo:ment와 함께 당신의 모든 소중한 순간들을 기록하고, 언제든 꺼내볼 수 있는 아름다운 추억으로 만들어 가세요!
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+---
