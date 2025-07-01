@@ -1,10 +1,10 @@
-
 import { useState } from 'react';
 import { CalendarView } from '@/components/CalendarView';
 import { PhotoGallery } from '@/components/PhotoGallery';
 import { UploadModal } from '@/components/UploadModal';
+import { ShareModal } from '@/components/ShareModal';
 import { Button } from '@/components/ui/button';
-import { Camera } from 'lucide-react';
+import { Camera, Share } from 'lucide-react';
 
 export interface Photo {
   id: string;
@@ -23,6 +23,8 @@ const Index = () => {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [photos, setPhotos] = useState<PhotosByDate>({});
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
+  const [calendarId] = useState('my-calendar-123'); // 실제로는 사용자별 고유 ID
 
   const handleDateSelect = (date: string) => {
     setSelectedDate(date);
@@ -59,13 +61,23 @@ const Index = () => {
               </h1>
               <p className="text-sm text-orange-600/70 mt-1">당신의 소중한 순간들</p>
             </div>
-            <Button 
-              onClick={() => setUploadModalOpen(true)}
-              className="bg-gradient-to-r from-orange-500 to-rose-500 hover:from-orange-600 hover:to-rose-600 text-white shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              <Camera className="mr-2 h-4 w-4" />
-              사진 추가
-            </Button>
+            <div className="flex gap-3">
+              <Button 
+                onClick={() => setShareModalOpen(true)}
+                variant="outline"
+                className="border-orange-200 hover:bg-orange-50 text-orange-600"
+              >
+                <Share className="mr-2 h-4 w-4" />
+                공유
+              </Button>
+              <Button 
+                onClick={() => setUploadModalOpen(true)}
+                className="bg-gradient-to-r from-orange-500 to-rose-500 hover:from-orange-600 hover:to-rose-600 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                <Camera className="mr-2 h-4 w-4" />
+                사진 추가
+              </Button>
+            </div>
           </div>
         </div>
       </header>
@@ -96,6 +108,12 @@ const Index = () => {
         open={uploadModalOpen}
         onOpenChange={setUploadModalOpen}
         onAddPhoto={handleAddPhoto}
+      />
+
+      <ShareModal 
+        open={shareModalOpen}
+        onOpenChange={setShareModalOpen}
+        calendarId={calendarId}
       />
     </div>
   );
