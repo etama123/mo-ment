@@ -1,12 +1,102 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { useState } from 'react';
+import { CalendarView } from '@/components/CalendarView';
+import { PhotoGallery } from '@/components/PhotoGallery';
+import { UploadModal } from '@/components/UploadModal';
+import { Button } from '@/components/ui/button';
+import { Camera } from 'lucide-react';
+
+export interface Photo {
+  id: string;
+  url: string;
+  date: string;
+  title?: string;
+  note?: string;
+  location?: string;
+}
+
+export interface PhotosByDate {
+  [date: string]: Photo[];
+}
 
 const Index = () => {
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [photos, setPhotos] = useState<PhotosByDate>({});
+  const [uploadModalOpen, setUploadModalOpen] = useState(false);
+
+  const handleDateSelect = (date: string) => {
+    setSelectedDate(date);
+  };
+
+  const handleAddPhoto = (photo: Photo) => {
+    setPhotos(prev => ({
+      ...prev,
+      [photo.date]: [...(prev[photo.date] || []), photo]
+    }));
+  };
+
+  const handleUpdatePhoto = (photoId: string, updates: Partial<Photo>) => {
+    setPhotos(prev => {
+      const newPhotos = { ...prev };
+      Object.keys(newPhotos).forEach(date => {
+        newPhotos[date] = newPhotos[date].map(photo => 
+          photo.id === photoId ? { ...photo, ...updates } : photo
+        );
+      });
+      return newPhotos;
+    });
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50">
+      {/* Header */}
+      <header className="bg-white/80 backdrop-blur-sm border-b border-orange-100 sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-rose-600 bg-clip-text text-transparent">
+                Mo:ment
+              </h1>
+              <p className="text-sm text-orange-600/70 mt-1">당신의 소중한 순간들</p>
+            </div>
+            <Button 
+              onClick={() => setUploadModalOpen(true)}
+              className="bg-gradient-to-r from-orange-500 to-rose-500 hover:from-orange-600 hover:to-rose-600 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <Camera className="mr-2 h-4 w-4" />
+              사진 추가
+            </Button>
+          </div>
+        </div>
+      </header>
+
+      <main className="max-w-7xl mx-auto px-6 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Calendar Section */}
+          <div className="lg:col-span-2">
+            <CalendarView 
+              photos={photos}
+              selectedDate={selectedDate}
+              onDateSelect={handleDateSelect}
+            />
+          </div>
+
+          {/* Photo Gallery Section */}
+          <div className="lg:col-span-1">
+            <PhotoGallery 
+              selectedDate={selectedDate}
+              photos={selectedDate ? photos[selectedDate] || [] : []}
+              onUpdatePhoto={handleUpdatePhoto}
+            />
+          </div>
+        </div>
+      </main>
+
+      <UploadModal 
+        open={uploadModalOpen}
+        onOpenChange={setUploadModalOpen}
+        onAddPhoto={handleAddPhoto}
+      />
     </div>
   );
 };
