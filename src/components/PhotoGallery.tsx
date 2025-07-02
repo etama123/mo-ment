@@ -32,14 +32,12 @@ export const PhotoGallery = ({ selectedDate, photos, onUpdatePhoto }: PhotoGalle
   };
 
   const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr);
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
+    const [year, month, day] = dateStr.split('-');
+    const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
     const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
     const weekDay = weekDays[date.getDay()];
     
-    return `${year}년 ${month}월 ${day}일 ${weekDay}요일`;
+    return `${year}년 ${parseInt(month)}월 ${parseInt(day)}일 ${weekDay}요일`;
   };
 
   if (!selectedDate) {

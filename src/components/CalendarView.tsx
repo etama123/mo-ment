@@ -41,16 +41,23 @@ export const CalendarView = ({ photos, selectedDate, onDateSelect }: CalendarVie
     });
   };
 
+  const formatDateToString = (date: Date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   const generateCalendarDays = () => {
     const days = [];
     const current = new Date(startDate);
     
     for (let i = 0; i < 42; i++) {
-      const dateStr = current.toISOString().split('T')[0];
+      const dateStr = formatDateToString(current);
       const isCurrentMonth = current.getMonth() === month;
       const hasPhotos = photos[dateStr] && photos[dateStr].length > 0;
       const isSelected = selectedDate === dateStr;
-      const isToday = current.toDateString() === new Date().toDateString();
+      const isToday = formatDateToString(current) === formatDateToString(new Date());
       
       days.push({
         date: new Date(current),
