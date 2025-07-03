@@ -30,6 +30,38 @@ const calendarData: Record<string, any> = {
       { id: 'me-20-1', url: '/public/placeholder.svg', title: '친구들과', note: '오랜만에 만난 친구들' }
     ]
   },
+  'my-calendar-2': {
+    '2025-07-05': [
+      { id: 'concert-5-1', url: '/public/placeholder.svg', title: '콘서트 홀', note: '클래식 공연 관람' },
+      { id: 'concert-5-2', url: '/public/placeholder.svg', title: '오케스트라', note: '베토벤 교향곡 5번' }
+    ],
+    '2025-07-12': [
+      { id: 'concert-12-1', url: '/public/placeholder.svg', title: '뮤지컬', note: '레 미제라블 공연' },
+      { id: 'concert-12-2', url: '/public/placeholder.svg', title: '무대', note: '감동적인 공연이었다' }
+    ],
+    '2025-07-25': [
+      { id: 'concert-25-1', url: '/public/placeholder.svg', title: '재즈 페스티벌', note: '야외 재즈 공연' }
+    ]
+  },
+  'my-calendar-3': {
+    '2025-07-03': [
+      { id: 'couple-3-1', url: '/public/placeholder.svg', title: '데이트', note: '영화관에서 영화 보기' },
+      { id: 'couple-3-2', url: '/public/placeholder.svg', title: '팝콘', note: '함께 먹는 팝콘' }
+    ],
+    '2025-07-10': [
+      { id: 'couple-10-1', url: '/public/placeholder.svg', title: '카페 데이트', note: '아늑한 카페에서' },
+      { id: 'couple-10-2', url: '/public/placeholder.svg', title: '케이크', note: '맛있는 디저트' }
+    ],
+    '2025-07-18': [
+      { id: 'couple-18-1', url: '/public/placeholder.svg', title: '공원 산책', note: '벚꽃 공원에서 산책' },
+      { id: 'couple-18-2', url: '/public/placeholder.svg', title: '벚꽃', note: '예쁜 벚꽃 사진' }
+    ],
+    '2025-07-30': [
+      { id: 'couple-30-1', url: '/public/placeholder.svg', title: '기념일', note: '100일 기념일' },
+      { id: 'couple-30-2', url: '/public/placeholder.svg', title: '선물', note: '받은 선물들' },
+      { id: 'couple-30-3', url: '/public/placeholder.svg', title: '케이크', note: '기념 케이크' }
+    ]
+  },
   friend1: {
     '2025-07-01': [
       { id: 'f1-1-1', url: '/public/placeholder.svg', title: '친구1 사진1', note: '친구1 메모' },
@@ -92,9 +124,59 @@ const App = () => {
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const [calendarId] = useState('my-calendar-123');
   const [calendarDataState, setCalendarDataState] = useState(calendarData);
+  
+  // 캘린더 목록 관리
+  const [calendars, setCalendars] = useState([
+    { id: 'me', name: '나의 캘린더', type: 'my' as const },
+    { id: 'my-calendar-2', name: '공연 기록', type: 'my' as const },
+    { id: 'my-calendar-3', name: '❤️', type: 'my' as const },
+    { id: 'friend1', name: '친구1', type: 'friend' as const },
+    { id: 'friend2', name: '친구2', type: 'friend' as const },
+  ]);
 
   // 선택된 날짜의 사진 배열
   const photos = selectedDate && calendarDataState[selectedUserId][selectedDate] ? calendarDataState[selectedUserId][selectedDate] : [];
+
+  // 캘린더 추가
+  const handleAddCalendar = (name: string) => {
+    const newId = `my-calendar-${Date.now()}`;
+    const newCalendar = { id: newId, name, type: 'my' as const };
+    setCalendars(prev => [...prev, newCalendar]);
+    
+    // 새 캘린더에 빈 데이터 추가
+    setCalendarDataState(prev => ({
+      ...prev,
+      [newId]: {}
+    }));
+  };
+
+  // 캘린더 수정
+  const handleUpdateCalendar = (id: string, name: string) => {
+    setCalendars(prev => prev.map(calendar => 
+      calendar.id === id ? { ...calendar, name } : calendar
+    ));
+  };
+
+  // 캘린더 삭제
+  const handleDeleteCalendar = (id: string) => {
+    setCalendars(prev => prev.filter(calendar => calendar.id !== id));
+    
+    // 캘린더 데이터도 삭제
+    setCalendarDataState(prev => {
+      const newData = { ...prev };
+      delete newData[id];
+      return newData;
+    });
+    
+    // 삭제된 캘린더가 현재 선택된 캘린더라면 첫 번째 내 캘린더로 변경
+    if (selectedUserId === id) {
+      const firstMyCalendar = calendars.find(cal => cal.type === 'my' && cal.id !== id);
+      if (firstMyCalendar) {
+        setSelectedUserId(firstMyCalendar.id);
+        setSelectedDate(null);
+      }
+    }
+  };
 
   // 사진 추가
   const handleAddPhoto = (photo: any) => {
@@ -180,7 +262,14 @@ const App = () => {
                 </header>
                 {/* Main Content */}
                 <div style={{ display: 'flex', flex: 1, minHeight: 0 }}>
-                  <Sidebar selectedUserId={selectedUserId} onSelectUser={id => { setSelectedUserId(id); setSelectedDate(null); }} />
+                  <Sidebar 
+                    selectedUserId={selectedUserId} 
+                    onSelectUser={id => { setSelectedUserId(id); setSelectedDate(null); }}
+                    calendars={calendars}
+                    onAddCalendar={handleAddCalendar}
+                    onUpdateCalendar={handleUpdateCalendar}
+                    onDeleteCalendar={handleDeleteCalendar}
+                  />
                   <main style={{ flex: 1, padding: 24, overflow: 'auto' }}>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 400px', gap: 24, height: '100%' }}>
                       <div>
