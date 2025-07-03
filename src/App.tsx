@@ -11,9 +11,8 @@ import Sidebar from './components/Sidebar';
 import { CalendarView } from './components/CalendarView';
 import { PhotoGallery } from './components/PhotoGallery';
 import { UploadModal } from './components/UploadModal';
-import { ShareModal } from './components/ShareModal';
 import { Button } from './components/ui/button';
-import { Camera, Share } from 'lucide-react';
+import { Camera } from 'lucide-react';
 
 const queryClient = new QueryClient();
 
@@ -121,7 +120,6 @@ const App = () => {
   const [selectedUserId, setSelectedUserId] = useState('me');
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
-  const [shareModalOpen, setShareModalOpen] = useState(false);
   const [calendarId] = useState('my-calendar-123');
   const [calendarDataState, setCalendarDataState] = useState(calendarData);
   
@@ -230,7 +228,7 @@ const App = () => {
               <div style={{ display: 'flex', height: '100vh', flexDirection: 'column' }}>
                 {/* Header */}
                 <header style={{ 
-                  background: 'linear-gradient(180deg, rgba(254,215,170,0.85) 0%, rgba(254,243,199,0.9) 50%, rgba(255,255,255,0.95) 100%)', 
+                  background: 'linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%)', 
                   borderBottom: '1px solid #fde68a', 
                   padding: '16px 32px', 
                   display: 'flex', 
@@ -243,14 +241,6 @@ const App = () => {
                     <p style={{ fontSize: 14, color: '#ea580c', opacity: 0.7, marginTop: 4 }}>당신의 소중한 순간들</p>
                   </div>
                   <div style={{ display: 'flex', gap: 12 }}>
-                    <Button 
-                      onClick={() => setShareModalOpen(true)}
-                      variant="outline"
-                      className="border-orange-200 hover:bg-orange-50 text-orange-600"
-                    >
-                      <Share className="mr-2 h-4 w-4" />
-                      공유
-                    </Button>
                     <Button 
                       onClick={() => setUploadModalOpen(true)}
                       className="bg-gradient-to-r from-orange-500 to-rose-500 hover:from-orange-600 hover:to-rose-600 text-white shadow-lg hover:shadow-xl transition-all duration-300"
@@ -296,11 +286,6 @@ const App = () => {
                   onOpenChange={setUploadModalOpen}
                   onAddPhoto={handleAddPhoto}
                   selectedDate={selectedDate}
-                />
-                <ShareModal 
-                  open={shareModalOpen}
-                  onOpenChange={setShareModalOpen}
-                  calendarId={calendarId}
                 />
               </div>
             } />
