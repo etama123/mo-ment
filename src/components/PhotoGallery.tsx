@@ -46,12 +46,31 @@ export const PhotoGallery = ({ selectedDate, photos, onUpdatePhoto, onDeletePhot
     return (
       <Card className="p-6 bg-white/90 backdrop-blur-sm border-orange-100 shadow-xl h-fit">
         <div className="text-center py-12">
-          <div className="w-16 h-16 bg-gradient-to-br from-orange-200 to-rose-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-orange-200 to-rose-200 rounded-full mx-auto mb-4 flex items-center justify-center"
+               style={{
+                 animation: '2s ease-in-out infinite',
+                 animationName: 'pulse',
+                 animationDirection: 'alternate'
+               }}>
             <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-rose-400 rounded-full" />
           </div>
           <h3 className="text-lg font-semibold text-gray-700 mb-2">날짜를 선택해주세요</h3>
           <p className="text-sm text-gray-500">캘린더에서 날짜를 클릭하면<br />그날의 추억을 볼 수 있어요</p>
         </div>
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            @keyframes pulse {
+              0% {
+                opacity: 1;
+                transform: scale(1);
+              }
+              100% {
+                opacity: 0.8;
+                transform: scale(1.05);
+              }
+            }
+          `
+        }} />
       </Card>
     );
   }

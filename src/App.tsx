@@ -147,7 +147,15 @@ const App = () => {
             <Route path="/" element={
               <div style={{ display: 'flex', height: '100vh', flexDirection: 'column' }}>
                 {/* Header */}
-                <header style={{ background: 'rgba(255,255,255,0.8)', borderBottom: '1px solid #fde68a', padding: '16px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <header style={{ 
+                  background: 'linear-gradient(180deg, rgba(254,215,170,0.85) 0%, rgba(254,243,199,0.9) 50%, rgba(255,255,255,0.95) 100%)', 
+                  borderBottom: '1px solid #fde68a', 
+                  padding: '16px 32px', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'space-between',
+                  backdropFilter: 'blur(10px)'
+                }}>
                   <div>
                     <h1 style={{ fontSize: 28, fontWeight: 700, background: 'linear-gradient(to right, #ea580c, #e11d48)', WebkitBackgroundClip: 'text', color: 'transparent' }}>Mo:ment</h1>
                     <p style={{ fontSize: 14, color: '#ea580c', opacity: 0.7, marginTop: 4 }}>당신의 소중한 순간들</p>
