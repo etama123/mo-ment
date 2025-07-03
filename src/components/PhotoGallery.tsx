@@ -1,18 +1,20 @@
-
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Photo } from '@/pages/Index';
+import { Trash2 } from 'lucide-react';
 
 interface PhotoGalleryProps {
   selectedDate: string | null;
   photos: Photo[];
   onUpdatePhoto: (photoId: string, updates: Partial<Photo>) => void;
+  onDeletePhoto: (photoId: string) => void;
+  isOwnCalendar: boolean;
 }
 
-export const PhotoGallery = ({ selectedDate, photos, onUpdatePhoto }: PhotoGalleryProps) => {
+export const PhotoGallery = ({ selectedDate, photos, onUpdatePhoto, onDeletePhoto, isOwnCalendar }: PhotoGalleryProps) => {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const [editingNote, setEditingNote] = useState(false);
   const [noteText, setNoteText] = useState('');
@@ -110,57 +112,103 @@ export const PhotoGallery = ({ selectedDate, photos, onUpdatePhoto }: PhotoGalle
               </div>
               
               <div className="space-y-3">
-                <div>
-                  <Label className="text-sm font-medium text-gray-700">제목</Label>
-                  <Input
-                    value={selectedPhoto.title || ''}
-                    onChange={(e) => onUpdatePhoto(selectedPhoto.id, { title: e.target.value })}
-                    placeholder="사진 제목을 입력하세요"
-                    className="mt-1 border-orange-200 focus:border-orange-400"
-                  />
-                </div>
+                {isOwnCalendar && (
+                  <div>
+                    <Label className="text-sm font-medium text-gray-700">제목</Label>
+                    <Input
+                      value={selectedPhoto.title || ''}
+                      onChange={(e) => onUpdatePhoto(selectedPhoto.id, { title: e.target.value })}
+                      placeholder="사진 제목을 입력하세요"
+                      className="mt-1 border-orange-200 focus:border-orange-400"
+                    />
+                  </div>
+                )}
 
-                <div>
-                  <Label className="text-sm font-medium text-gray-700">감상 메모</Label>
-                  {editingNote ? (
-                    <div className="mt-1 space-y-2">
-                      <Input
-                        value={noteText}
-                        onChange={(e) => setNoteText(e.target.value)}
-                        placeholder="이날의 감상을 기록해보세요..."
-                        className="border-orange-200 focus:border-orange-400"
-                      />
-                      <div className="flex gap-2">
-                        <Button 
-                          size="sm" 
-                          onClick={handleSaveNote}
-                          className="bg-orange-500 hover:bg-orange-600"
-                        >
-                          저장
-                        </Button>
-                        <Button 
-                          size="sm" 
-                          variant="outline" 
-                          onClick={() => setEditingNote(false)}
-                          className="border-orange-200 hover:bg-orange-50"
-                        >
-                          취소
-                        </Button>
+                {isOwnCalendar && (
+                  <div>
+                    <Label className="text-sm font-medium text-gray-700">감상 메모</Label>
+                    {editingNote ? (
+                      <div className="mt-1 space-y-2">
+                        <Input
+                          value={noteText}
+                          onChange={(e) => setNoteText(e.target.value)}
+                          placeholder="이날의 감상을 기록해보세요..."
+                          className="border-orange-200 focus:border-orange-400"
+                        />
+                        <div className="flex gap-2">
+                          <Button 
+                            size="sm" 
+                            onClick={handleSaveNote}
+                            className="bg-orange-500 hover:bg-orange-600"
+                          >
+                            저장
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="outline" 
+                            onClick={() => setEditingNote(false)}
+                            className="border-orange-200 hover:bg-orange-50"
+                          >
+                            취소
+                          </Button>
+                        </div>
                       </div>
-                    </div>
-                  ) : (
-                    <div 
-                      onClick={() => setEditingNote(true)}
-                      className="mt-1 p-3 border border-orange-200 rounded-md cursor-pointer hover:bg-orange-50 transition-colors"
+                    ) : (
+                      <div 
+                        onClick={() => setEditingNote(true)}
+                        className="mt-1 p-3 border border-orange-200 rounded-md cursor-pointer hover:bg-orange-50 transition-colors"
+                      >
+                        {selectedPhoto.note || (
+                          <span className="text-gray-500 text-sm">
+                            클릭해서 감상을 기록해보세요...
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* 사진 정보 표시 (친구 캘린더일 때) */}
+                {!isOwnCalendar && (
+                  <div className="space-y-2">
+                    {selectedPhoto.title && (
+                      <div>
+                        <Label className="text-sm font-medium text-gray-700">제목</Label>
+                        <div className="mt-1 p-3 bg-gray-50 rounded-md text-gray-800">
+                          {selectedPhoto.title}
+                        </div>
+                      </div>
+                    )}
+                    {selectedPhoto.note && (
+                      <div>
+                        <Label className="text-sm font-medium text-gray-700">감상 메모</Label>
+                        <div className="mt-1 p-3 bg-gray-50 rounded-md text-gray-800">
+                          {selectedPhoto.note}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Delete Button - 나의 캘린더일 때만 표시 */}
+                {isOwnCalendar && (
+                  <div className="pt-2">
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => {
+                        if (window.confirm('이 사진을 삭제하시겠습니까?')) {
+                          onDeletePhoto(selectedPhoto.id);
+                          setSelectedPhoto(null);
+                        }
+                      }}
+                      className="w-full border-red-200 text-red-600 hover:bg-red-50 hover:border-red-300"
                     >
-                      {selectedPhoto.note || (
-                        <span className="text-gray-500 text-sm">
-                          클릭해서 감상을 기록해보세요...
-                        </span>
-                      )}
-                    </div>
-                  )}
-                </div>
+                      <Trash2 className="mr-2 h-4 w-4" />
+                      사진 삭제
+                    </Button>
+                  </div>
+                )}
               </div>
             </div>
           )}
